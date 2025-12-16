@@ -11,7 +11,15 @@ FastAPI service exposing bgpq4 as an API.
 - Multiple output formats (JSON, Cisco, Juniper, etc.)
 - Prometheus metrics
 
-## Quick Start with Docker
+## Docker Image
+
+Pre-built images are available on GitHub Container Registry:
+
+```bash
+docker pull ghcr.io/jsenecal/fastbgpq4:latest
+```
+
+### Quick Start with Docker Compose
 
 ```bash
 cd docker
