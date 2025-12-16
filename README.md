@@ -116,7 +116,7 @@ ruff check .
 - **FastAPI** - Web framework
 - **Taskiq** - Background task queue
 - **Redis** - Caching and task queue backend
-- **bgpq4** - IRR query tool
+- **bgpq4** - IRR query tool (BSD-2-Clause licensed, binary included in Docker image)
 - **Pydantic** - Configuration and validation
 - **Prometheus** - Metrics export
 
@@ -147,3 +147,9 @@ For Docker deployments, apply these settings on the host system or use `--sysctl
 ```bash
 docker run --sysctl net.core.rmem_max=2097152 --sysctl net.core.wmem_max=2097152 ...
 ```
+
+## License
+
+This project is licensed under the [GNU Affero General Public License v3.0](LICENSE).
+
+Note: The Docker image includes the bgpq4 binary which is licensed under BSD-2-Clause.

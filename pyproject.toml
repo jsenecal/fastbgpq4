@@ -2,6 +2,10 @@
 name = "fastbgpq4"
 version = "0.1.0"
 description = "FastAPI service exposing bgpq4 as an API"
+license = "AGPL-3.0-only"
+authors = [
+    { name = "Jonathan Senecal", email = "jonathan.senecal@metrooptic.com" }
+]
 requires-python = ">=3.11"
 dependencies = [
     "fastapi>=0.104.0",
