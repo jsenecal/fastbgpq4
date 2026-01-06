@@ -42,6 +42,7 @@ dev = [
     "pytest-cov>=4.1.0",
     "httpx>=0.25.0",
     "ruff>=0.1.0",
+    "bumpver>=2025.1131",
 ]
 
 [build-system]
@@ -62,3 +63,14 @@ ignore = []
 [tool.pytest.ini_options]
 asyncio_mode = "auto"
 testpaths = ["tests"]
+
+[tool.bumpver]
+current_version = "0.1.0"
+version_pattern = "MAJOR.MINOR.PATCH"
+commit_message = "chore: bump version {old_version} -> {new_version}"
+commit = true
+tag = true
+push = false
+
+[tool.bumpver.file_patterns]
+"pyproject.toml" = ['current_version = "{version}"', 'version = "{pep440_version}"']
