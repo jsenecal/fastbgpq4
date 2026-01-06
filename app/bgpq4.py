@@ -2,6 +2,13 @@ import asyncio
 import json
 from typing import Any
 
+from tenacity import (
+    retry,
+    retry_if_exception_type,
+    stop_after_attempt,
+    wait_exponential,
+)
+
 from app.exceptions import BGPq4ExecutionError, BGPq4ParseError, BGPq4TimeoutError
 
 
@@ -123,27 +130,22 @@ class BGPq4Client:
         timeout_seconds: float = 30.0,
     ) -> str:
         """Execute bgpq4 with retry logic for transient failures."""
-        last_error = None
 
-        for attempt in range(self.max_retries + 1):
-            try:
-                return await self.execute(
-                    target=target,
-                    sources=sources,
-                    format=format,
-                    aggregate=aggregate,
-                    min_masklen=min_masklen,
-                    max_masklen=max_masklen,
-                    timeout_seconds=timeout_seconds,
-                )
-            except (BGPq4ExecutionError, BGPq4TimeoutError) as e:
-                last_error = e
-                if attempt < self.max_retries:
-                    wait_time = self.retry_backoff * (2**attempt)
-                    await asyncio.sleep(wait_time)
-                    continue
-                raise
+        @retry(
+            stop=stop_after_attempt(self.max_retries + 1),
+            wait=wait_exponential(multiplier=self.retry_backoff),
+            retry=retry_if_exception_type((BGPq4ExecutionError, BGPq4TimeoutError)),
+            reraise=True,
+        )
+        async def _execute_with_retry() -> str:
+            return await self.execute(
+                target=target,
+                sources=sources,
+                format=format,
+                aggregate=aggregate,
+                min_masklen=min_masklen,
+                max_masklen=max_masklen,
+                timeout_seconds=timeout_seconds,
+            )
 
-        # Should not reach here, but for type safety
-        if last_error:
-            raise last_error
+        return await _execute_with_retry()
