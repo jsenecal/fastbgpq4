@@ -2,7 +2,7 @@
 FROM ghcr.io/bgp/bgpq4:latest AS bgpq4
 
 # Runtime image with Python app
-FROM python:3.11-alpine
+FROM python:3.14-alpine
 
 # Copy bgpq4 binary from official image
 COPY --from=bgpq4 /bgp/bgpq4 /usr/local/bin/bgpq4
