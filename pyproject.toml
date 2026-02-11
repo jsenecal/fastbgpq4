@@ -1,6 +1,6 @@
 [project]
 name = "fastbgpq4"
-version = "1.0.1"
+version = "1.0.2"
 description = "FastAPI service exposing bgpq4 as an API"
 license = "AGPL-3.0-only"
 authors = [
@@ -65,7 +65,7 @@ asyncio_mode = "auto"
 testpaths = ["tests"]
 
 [tool.bumpver]
-current_version = "1.0.1"
+current_version = "1.0.2"
 version_pattern = "MAJOR.MINOR.PATCH"
 commit_message = "chore: bump version v{old_version} -> v{new_version}"
 tag_template = "v{new_version}"
