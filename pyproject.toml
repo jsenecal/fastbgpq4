@@ -65,10 +65,9 @@ asyncio_mode = "auto"
 testpaths = ["tests"]
 
 [tool.bumpver]
-current_version = "1.0.2"
-version_pattern = "MAJOR.MINOR.PATCH"
-commit_message = "chore: bump version v{old_version} -> v{new_version}"
-tag_template = "v{new_version}"
+current_version = "v1.0.2"
+version_pattern = "vMAJOR.MINOR.PATCH"
+commit_message = "chore: bump version {old_version} -> {new_version}"
 commit = true
 tag = true
 push = false
